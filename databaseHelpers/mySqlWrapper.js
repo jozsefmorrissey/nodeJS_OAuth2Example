@@ -17,10 +17,11 @@ function initConnection() {
   //set the global connection object
    connection = mySql.createConnection({
 
+
     host: 'localhost',
-    user: 'root',
-    password: 'databasePassword',
-    database: 'oAuth2Test'
+    user: 'UUS',
+    password: 'ITSJUSTATESTDB',
+    database: 'uus'
   })
 }
 

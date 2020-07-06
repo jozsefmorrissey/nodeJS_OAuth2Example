@@ -40,10 +40,10 @@ function registerUserInDB(username, password, registrationCallback){
  * @param password
  * @param callback - takes an error and a user object
  */
-function getUserFromCrentials(username, password, callback) {
+function getUserFromCrentials(loginId, password, callback) {
 
   //create query using the data in the req.body to register the user in the db
-  const getUserQuery = `SELECT * FROM users WHERE username = '${username}' AND user_password = SHA('${password}')`
+  const getUserQuery = `SELECT * FROM USER WHERE LOGIN_ID = '${loginId}' AND PASSWORD = SHA('${password}')`;
 
   console.log('getUserFromCrentials query is: ', getUserQuery);
 

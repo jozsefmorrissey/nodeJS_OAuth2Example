@@ -1,6 +1,6 @@
 //MARK: --- REQUIRE MODULES
 
-const port = 8080
+const port = 8000
 const mySqlConnection = require('./databaseHelpers/mySqlWrapper')
 const accessTokenDBHelper = require('./databaseHelpers/accessTokensDBHelper')(mySqlConnection)
 const userDBHelper = require('./databaseHelpers/userDBHelper')(mySqlConnection)
@@ -10,7 +10,7 @@ const express = require('express')
 const expressApp = express()
 expressApp.oauth = oAuth2Server({
   model: oAuthModel,
-  grants: ['password'],
+  grants: ['authorization_code'],
   debug: true
 })
 
@@ -30,6 +30,9 @@ expressApp.use(bodyParser.urlencoded({ extended: true }))
 //set the oAuth errorHandler
 expressApp.use(expressApp.oauth.errorHandler())
 
+//Set public content folder
+expressApp.use(express.static('./public'))
+
 //set the authRoutes for registration and & login requests
 expressApp.use('/auth', authRoutes)
 
@@ -37,6 +40,28 @@ expressApp.use('/auth', authRoutes)
 expressApp.use('/restrictedArea', restrictedAreaRoutes)
 
 //MARK: --- INITIALISE MIDDLEWARE & ROUTES
+
+setTimeout(() => {
+    var callCount = 0;
+    function test(err, data) {
+      callCount +=1;
+      console.log(`${callCount}))\nerr: ${err} \ndata: \n ${JSON.stringify(data)}\n\n`);
+    }
+    userDBHelper.getUserFromCrentials('BPDADDY', 'PASSWORD', test);
+    setTimeout(() => {
+        userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
+        setTimeout(() => {
+          userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
+          setTimeout(() => {
+            userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
+            setTimeout(() => {
+              userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
+            },50);
+          },50);
+        },50);
+    },50);
+},50);
+
 
 //init the server
 expressApp.listen(port, () => {

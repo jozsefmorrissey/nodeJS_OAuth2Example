@@ -17,8 +17,27 @@ module.exports =  (injectedUserDBHelper, injectedAccessTokensDBHelper) => {
 
     grantTypeAllowed: grantTypeAllowed,
 
-    getAccessToken: getAccessToken
+    getAccessToken: getAccessToken,
+
+    getAuthCode: getAuthCode,
     }
+}
+
+function getRefreshExpiresAt() {
+  return new Date();
+}
+
+function getRedirectUri() {
+  return 'https://www.gooogle.com';
+}
+
+function getAuthCode(authCode) {
+  console.log('authCode: ' + authCode + "\n\n" +  JSON.stringify(arguments, null, 2));
+  const client = getClient();
+  const expiresAt = getExpiresAt();
+  const redirectUri = getRedirectUri();
+  const user = getUser();
+  return {client, expiresAt, redirectUri, user};
 }
 
 /* This method returns the client application which is attempting to get the accessToken.
