@@ -10,8 +10,8 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-globalString = "0.52"
-varable: {{< param globalString >}}
+aglio -Dproduct.name=LeCoolProduct
+${product.name} Web Service API
 ### /login
 #### &nbsp;&nbsp;Call
 ##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
