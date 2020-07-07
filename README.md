@@ -14,13 +14,13 @@
 <style type='text/css'>t { padding: 40pt };</style>
 <t>padded</t><t>padded</t><t>padded</t><t>padded</t><t>padded</t>
 ### /login
-#### &nbsp;&nbsp;Call
-##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_type=code<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope=[exposure attribute list]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_id=[client id]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_secret=[client secret]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br>
+#### - Call
+#####   - Parameters
+      - response_type=code<br>
+      - scope=[exposure attribute list]<br>
+      - client_id=[client id]<br>
+      - client_secret=[client secret]<br>
+      - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br>
 
 #### Response
 ##### Parameters
