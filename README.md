@@ -10,17 +10,14 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-<font size="+1">Description</font>
-<font size="+10">Description</font>
-<font size="+1">Description</font>
-<font size="20">/login</font>
-  - <font size="20">Call</font>
-  - <font size="20">Parameters</font>
-    - <font size="20">response_type=code<br></font>
-    - <font size="20">scope=[exposure attribute list]<br></font>
-    - <font size="20">client_id=[client id]<br></font>
-    - <font size="20">client_secret=[client secret]<br></font>
-    - <font size="20">state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br></font>
+- /login
+  - Call
+  - Parameters
+    - response_type=code<br>
+    - scope=[exposure attribute list]<br>
+    - client_id=[client id]<br>
+    - client_secret=[client secret]<br>
+    - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br>
 
 #### Response
 ##### Parameters
