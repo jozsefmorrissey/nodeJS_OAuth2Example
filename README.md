@@ -33,11 +33,13 @@ Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 - code=[authorizationCode]
 - redirect_uri=[Must Match Registered Uri]
 
-#### Response
+#### Response0
 ##### JSON
-{
-  "access_token" : "SlAV32hkKG",
-  "token_type"   : "Bearer",
-  "expires_in"   : 3600,
-  "scope"        : "myapi-read myapi-write"
-}
+<pre>
+      {
+        "access_token" : "SlAV32hkKG",
+        "token_type"   : "Bearer",
+        "expires_in"   : 3600,
+        "scope"        : "myapi-read myapi-write"
+      }
+</pre>
