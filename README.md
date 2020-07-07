@@ -10,7 +10,11 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-<style>t { padding: 40pt };</style>
+(setq markdown-xhtml-header-content
+      "<style type='text/css'>
+t { padding: 40pt };
+</style>")
+<style type='text/css'>t { padding: 40pt };</style>
 <t>padded</t><t>padded</t><t>padded</t><t>padded</t><t>padded</t>
 ### /login
 #### &nbsp;&nbsp;Call
