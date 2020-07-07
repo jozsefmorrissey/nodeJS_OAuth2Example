@@ -13,11 +13,11 @@
 ### /login
 #### &nbsp;&nbsp;Call
 ##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_type=code
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope=[exposure attribute list]
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_id=[client id]
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_secret=[client secret]
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_type=code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope=[exposure attribute list]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_id=[client id]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_secret=[client secret]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br>
 
 #### Response
 ##### Parameters
