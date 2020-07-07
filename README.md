@@ -9,10 +9,35 @@
 
 ## api
 ### /login
-#### Parameters
+#### Call
+##### Parameters
 - response_type=code
 - scope=[list of attributes]
 - client_id=[client_id]
 - client_secret=[client_secret]
 - state(optional)=[[clientValidationValue](https://tools.ietf.org/html/rfc6749#section-10.12)]
 - exposure=(public|connected|private)
+
+#### Response
+##### Parameters
+- code=[authorizationCode]
+- state=[clientState]
+
+### /token
+#### Call
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+
+##### Parameters
+- grant_type=authorization_code
+- code=[authorizationCode]
+- redirect_uri=[Must Match Registered Uri]
+
+#### Response
+##### JSON
+{
+  "access_token" : "SlAV32hkKG",
+  "token_type"   : "Bearer",
+  "expires_in"   : 3600,
+  "scope"        : "myapi-read myapi-write"
+}
