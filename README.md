@@ -10,11 +10,8 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-[I'm a reference-style link][Arbitrary case-insensitive reference text]
-[arbitrary case-insensitive reference text]: https://www.somewebsite.org
-[t]: tralalalala
-varable: [t]
-[t]
+<style>t { padding: 40pt };</style>
+<t>padded</t><t>padded</t><t>padded</t><t>padded</t><t>padded</t>
 ### /login
 #### &nbsp;&nbsp;Call
 ##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
