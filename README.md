@@ -11,14 +11,13 @@
 
 ## api
 ### /login
-#### Call
-##### Parameters
-- response_type=code
-- scope=[list of attributes]
-- client_id=[client_id]
-- client_secret=[client_secret]
-- state(optional)=[[clientValidationValue](https://tools.ietf.org/html/rfc6749#section-10.12)]
-- exposure=(public|connected|private)
+#### &nbsp;&nbsp;Call
+##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response_type=code
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scope=[exposure attribute list]
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_id=[client id]
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_secret=[client secret]
+- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
 
 #### Response
 ##### Parameters
