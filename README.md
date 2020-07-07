@@ -10,7 +10,7 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-<link rel="stylesheet" type="text/css" media="all" href="URL" />
+<link rel="stylesheet" type="text/css" media="all" href="https://raw.githubusercontent.com/jozsefmorrissey/nodeJS_OAuth2Example/uus/markdown.css" />
 <style type='text/css'>t { padding: 40pt };</style>
 <t>padded</t><t>padded</t><t>padded</t><t>padded</t><t>padded</t>
 ### /login
