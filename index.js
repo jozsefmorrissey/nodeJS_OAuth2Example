@@ -1,4 +1,16 @@
 //MARK: --- REQUIRE MODULES
+diceware = require('diceware');
+
+function getPassword(count) {
+  const words = diceware(count).split(' ');
+  for(let index = 0; index < words.length; index += 1) {
+    words[index] = words[index][0].toUpperCase() + words[index].substring(1);
+  }
+  return words.join('');
+}
+console.log(getPassword(3));   // by default generates a 5 word phrase
+console.log(getPassword(5)); // b
+console.log(getPassword(10)); // b
 
 const port = 8000
 const mySqlConnection = require('./databaseHelpers/mySqlWrapper')
