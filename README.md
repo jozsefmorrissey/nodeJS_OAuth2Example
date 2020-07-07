@@ -10,7 +10,7 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-#### /login
+### /login
   - Call
     - Parameters
       - response_type=code
@@ -25,20 +25,19 @@
       - state=[clientState]
 
 ### /token
-#### Call
-Content-Type: application/x-www-form-urlencoded<br>
-Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+- Call
+  - Content-Type: application/x-www-form-urlencoded<br>
+  - Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+  - Parameters
+    - grant_type=authorization_code
+    - code=[authorizationCode]
+    - redirect_uri=[Must Match Registered Uri]
 
-##### Parameters
-- grant_type=authorization_code
-- code=[authorizationCode]
-- redirect_uri=[Must Match Registered Uri]
-
-#### Response
-Content-Type: application/json<br>
-Cache-Control: no-store<br>
-Pragma: no-cache
-##### JSON
+- Response
+  - Content-Type: application/json<br>
+  - Cache-Control: no-store<br>
+  - Pragma: no-cache
+  - body
 <pre>
       {
         "access_token" : "SlAV32hkKG",
