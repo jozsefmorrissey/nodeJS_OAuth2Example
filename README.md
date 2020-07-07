@@ -10,23 +10,53 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-### /login
-  - Call
-    - Parameters
-      - response_type=code
-      - scope=[exposure attribute list]
-      - client_id=[client id]
-      - client_secret=[client secret]
-      - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
+### /data
+- Call
+  - Content-Type: application/json
+  - Cache-Control: no-store
+  - Pragma: no-cache
+  - body
+  <pre>
+      {
+        "access_token" : "SlAV32hkKG",
+        "token_type"   : "Bearer",
+        "expires_in"   : 3600,
+        "scope"        : "[exposure1]:[attribute1] [exposure2]:[attribute2]..."
+      }
+  </pre>
 
-  - Response
-    - Parameters
-      - code=[authorizationCode]
-      - state=[clientState]
+- Response
+  - Content-Type: application/json
+  - Cache-Control: no-store
+  - Pragma: no-cache
+  - body
+<pre>
+      {
+        "[attribute1]" : ???,
+        "[attribute2]" : ???,
+              .        : ???,
+              .        : ???,
+              .        : ???,
+      }
+</pre>
+
+### /login
+- Call
+  - Parameters
+    - response_type=code
+    - scope=[exposure1]:[attribute1] [exposure2]:[attribute2]...
+    - client_id=[client id]
+    - client_secret=[client secret]
+    - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
+
+- Response
+  - Parameters
+    - code=[authorizationCode]
+    - state=[clientState]
 
 ### /token
 - Call
-  - Content-Type: application/x-www-form-urlencoded<br>
+  - Content-Type: application/x-www-form-urlencoded
   - Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
   - Parameters
     - grant_type=authorization_code
@@ -34,8 +64,8 @@
     - redirect_uri=[Must Match Registered Uri]
 
 - Response
-  - Content-Type: application/json<br>
-  - Cache-Control: no-store<br>
+  - Content-Type: application/json
+  - Cache-Control: no-store
   - Pragma: no-cache
   - body
 <pre>
@@ -43,6 +73,6 @@
         "access_token" : "SlAV32hkKG",
         "token_type"   : "Bearer",
         "expires_in"   : 3600,
-        "scope"        : "myapi-read myapi-write"
+        "scope"        : "[exposure1]:[attribute1] [exposure2]:[attribute2]..."
       }
 </pre>
