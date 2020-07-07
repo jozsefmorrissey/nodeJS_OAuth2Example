@@ -25,7 +25,7 @@
 
 ### /token
 #### Call
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/x-www-form-urlencoded<br>
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 
 ##### Parameters
@@ -33,7 +33,10 @@ Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
 - code=[authorizationCode]
 - redirect_uri=[Must Match Registered Uri]
 
-#### Response0
+#### Response
+Content-Type: application/json<br>
+Cache-Control: no-store<br>
+Pragma: no-cache
 ##### JSON
 <pre>
       {
