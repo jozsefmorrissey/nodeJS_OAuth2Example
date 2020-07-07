@@ -10,8 +10,9 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-aglio -Dproduct.name=LeCoolProduct
-${product.name} Web Service API
+[I'm a reference-style link][t]
+varable: [t]
+[t]
 ### /login
 #### &nbsp;&nbsp;Call
 ##### &nbsp;&nbsp;&nbsp;&nbsp;Parameters
