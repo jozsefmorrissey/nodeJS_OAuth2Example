@@ -10,19 +10,19 @@
 <pre>             scope=[exposure1]:[attribute1] [exposure2]:[attribute2] [exposure3]:[attribute3]...</pre>
 
 ## api
-- /login
+#### /login
   - Call
-  - Parameters
-    - response_type=code<br>
-    - scope=[exposure attribute list]<br>
-    - client_id=[client id]<br>
-    - client_secret=[client secret]<br>
-    - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]<br>
+    - Parameters
+      - response_type=code
+      - scope=[exposure attribute list]
+      - client_id=[client id]
+      - client_secret=[client secret]
+      - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
 
-#### Response
-##### Parameters
-- code=[authorizationCode]
-- state=[clientState]
+  - Response
+    - Parameters
+      - code=[authorizationCode]
+      - state=[clientState]
 
 ### /token
 #### Call
