@@ -53,7 +53,7 @@ we can just create an empty client with all null values.Because the client is a 
  - as opposed to a client we've retrieved through another operation - we just pass false for the error parameter
   as no errors can occur due to the aforemtioned hardcoding */
 function getClient(clientID, clientSecret, callback){
-
+  console.log('getClient: ' + clientID);
   const client = {
     clientID,
     clientSecret,

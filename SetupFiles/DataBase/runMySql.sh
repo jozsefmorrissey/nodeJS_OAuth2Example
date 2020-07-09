@@ -12,11 +12,11 @@ rootPassword=$(pst value system mysql)
 
 if [ -z $user ]
 then
-  testPropFile=../../config/dev.properties
-  password=$(getValue mysql.test.password $testPropFile)
-  database=$(getValue mysql.test.database $testPropFile)
-  host=$(getValue mysql.test.host $testPropFile)
-  user=$(getValue mysql.test.user $testPropFile)
+  testPropFile=../../config/dev.user.properties
+  password=$(getValue mysql.password $testPropFile)
+  database=$(getValue mysql.database $testPropFile)
+  host=$(getValue mysql.host $testPropFile)
+  user=$(getValue mysql.user $testPropFile)
 else
   propFile=../../config/prod.properties
   host=$(getValue host $propFile)

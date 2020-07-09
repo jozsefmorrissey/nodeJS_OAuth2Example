@@ -1,8 +1,11 @@
+const randomstring = require("randomstring");
 let mySqlConnection;
+let mysqlProps;
 
-module.exports = injectedMySqlConnection => {
+module.exports = (injectedMySqlConnection, injectedMysqlProps) => {
 
   mySqlConnection = injectedMySqlConnection
+  mysqlProps = injectedMysqlProps;
 
   return {
 
@@ -21,13 +24,22 @@ module.exports = injectedMySqlConnection => {
  * @param password
  * @param registrationCallback - takes a DataResponseObject
  */
-function registerUserInDB(username, password, registrationCallback){
-
-  //create query using the data in the req.body to register the user in the db
-  const registerUserQuery = `INSERT INTO users (username, user_password) VALUES ('${username}', SHA('${password}'))`
-
-  //execute the query to register the user
-  mySqlConnection.query(registerUserQuery, registrationCallback)
+function registerUserInDB(body, registrationCallback){
+  let registerUserQuery;
+  switch (mysqlProps.table) {
+    case 'USER':
+      registerUserQuery = `INSERT INTO ${mysqlProps.table} (LOGIN_ID, PASSWORD, EMAIL) VALUES (?, SHA(?), ?)`;
+      mySqlConnection.query(registerUserQuery, [body.loginId, body.password, body.email], registrationCallback)
+      break;
+    case 'CLIENT':
+      registerUserQuery = `INSERT INTO ${mysqlProps.table} (LOGIN_ID, PASSWORD, EMAIL, REDIRECT_URI, ID, SECRET) VALUES (?, SHA(?), ?, ?, ?, ?)`;
+      const id = randomstring.generate(40);
+      const secret = randomstring.generate(40);
+      mySqlConnection.query(registerUserQuery, [body.loginId, body.password, body.email, body.redirectUri, id, secret], registrationCallback)
+      break;
+    default:
+        throw new Error(`Invalid Registration Table: ${mysqlProps.table}`);
+  }
 }
 
 /**
@@ -43,12 +55,12 @@ function registerUserInDB(username, password, registrationCallback){
 function getUserFromCrentials(loginId, password, callback) {
 
   //create query using the data in the req.body to register the user in the db
-  const getUserQuery = `SELECT * FROM USER WHERE LOGIN_ID = '${loginId}' AND PASSWORD = SHA('${password}')`;
+  const getUserQuery = `SELECT * FROM ${mysqlProps.table} WHERE LOGIN_ID = ? AND PASSWORD = SHA(?)`;
 
   console.log('getUserFromCrentials query is: ', getUserQuery);
 
   //execute the query to get the user
-  mySqlConnection.query(getUserQuery, (dataResponseObject) => {
+  mySqlConnection.query(getUserQuery, [loginId, password], (dataResponseObject) => {
 
       //pass in the error which may be null and pass the results object which we get the user from if it is not null
       callback(false, dataResponseObject.results !== null && dataResponseObject.results.length  === 1 ?  dataResponseObject.results[0] : null)
@@ -67,10 +79,10 @@ function getUserFromCrentials(loginId, password, callback) {
  * @param callback - takes an error and a boolean value indicating
  *                   whether a user exists
  */
-function doesUserExist(username, callback) {
-
+function doesUserExist(loginId, callback) {
+console.log('\n\nDUE\n\n');
   //create query to check if the user already exists
-  const doesUserExistQuery = `SELECT * FROM users WHERE username = '${username}'`
+  const doesUserExistQuery = `SELECT * FROM ${mysqlProps.table} WHERE LOGIN_ID = ?`;
 
   //holds the results  from the query
   const sqlCallback = (dataResponseObject) => {
@@ -83,5 +95,5 @@ function doesUserExist(username, callback) {
   }
 
   //execute the query to check if the user exists
-  mySqlConnection.query(doesUserExistQuery, sqlCallback)
+  mySqlConnection.query(doesUserExistQuery, [loginId], sqlCallback)
 }

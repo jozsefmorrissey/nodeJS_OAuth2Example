@@ -1,30 +1,33 @@
 //MARK: --- REQUIRE MODULES
-diceware = require('diceware');
+const fs = require("fs");
+const https = require('https');
+const shell = require("shelljs")
 
-function getPassword(count) {
-  const words = diceware(count).split(' ');
-  for(let index = 0; index < words.length; index += 1) {
-    words[index] = words[index][0].toUpperCase() + words[index].substring(1);
-  }
-  return words.join('');
-}
-console.log(getPassword(3));   // by default generates a 5 word phrase
-console.log(getPassword(5)); // b
-console.log(getPassword(10)); // b
+const config = require('./config/config.js');
+// need cookieParser middleware before we can do anything with cookies
 
-const port = 8000
-const mySqlConnection = require('./databaseHelpers/mySqlWrapper')
-const accessTokenDBHelper = require('./databaseHelpers/accessTokensDBHelper')(mySqlConnection)
-const userDBHelper = require('./databaseHelpers/userDBHelper')(mySqlConnection)
-const oAuthModel = require('./authorisation/accessTokenModel')(userDBHelper, accessTokenDBHelper)
-const oAuth2Server = require('node-oauth2-server')
-const express = require('express')
-const expressApp = express()
+var https_options = {
+  key: fs.readFileSync(shell.exec("realpath ~/.cert/jozsefmorrissey_com.key").stdout.trim()),
+  cert: fs.readFileSync(shell.exec("realpath ~/.cert/jozsefmorrissey_com.crt").stdout.trim()),
+  ca: []
+};
+
+const port = config.get('port');
+const mySqlConnection = require('./databaseHelpers/mySqlWrapper');
+const accessTokenDBHelper = require('./databaseHelpers/accessTokensDBHelper')(mySqlConnection);
+const userDBHelper = require('./databaseHelpers/userDBHelper')(mySqlConnection, config.path().mysql);
+const oAuthModel = require('./authorisation/accessTokenModel')(userDBHelper, accessTokenDBHelper);
+const oAuth2Server = require('node-oauth2-server');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const expressApp = express();
+
 expressApp.oauth = oAuth2Server({
   model: oAuthModel,
   grants: ['authorization_code'],
   debug: true
-})
+});
+expressApp.use(cookieParser());
 
 const restrictedAreaRoutesMethods = require('./restrictedArea/restrictedAreaRoutesMethods.js')
 const restrictedAreaRoutes = require('./restrictedArea/restrictedAreaRoutes.js')(express.Router(), expressApp, restrictedAreaRoutesMethods)
@@ -53,30 +56,9 @@ expressApp.use('/restrictedArea', restrictedAreaRoutes)
 
 //MARK: --- INITIALISE MIDDLEWARE & ROUTES
 
-setTimeout(() => {
-    var callCount = 0;
-    function test(err, data) {
-      callCount +=1;
-      console.log(`${callCount}))\nerr: ${err} \ndata: \n ${JSON.stringify(data)}\n\n`);
-    }
-    userDBHelper.getUserFromCrentials('BPDADDY', 'PASSWORD', test);
-    setTimeout(() => {
-        userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
-        setTimeout(() => {
-          userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
-          setTimeout(() => {
-            userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
-            setTimeout(() => {
-              userDBHelper.getUserFromCrentials('SMDADDY', 'PASSWORD', test);
-            },50);
-          },50);
-        },50);
-    },50);
-},50);
-
-
 //init the server
-expressApp.listen(port, () => {
+var httpsServer = https.createServer(https_options, expressApp);
+httpsServer.listen(port, () => {
 
    console.log(`listening on port ${port}`)
-})
+});

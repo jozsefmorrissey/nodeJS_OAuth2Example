@@ -6,7 +6,7 @@ module.exports = injectedUserDBHelper => {
 
   return {
     registerUser: registerUser,
-    login: login
+    login: login,
   }
 }
 
@@ -17,7 +17,7 @@ function registerUser(req, res){
     console.log(`authRoutesMethods: registerUser: req.body is:`, req.body);
 
     //query db to see if the user exists already
-    userDBHelper.doesUserExist(req.body.username, (sqlError, doesUserExist) => {
+    userDBHelper.doesUserExist(req.body.loginId, (sqlError, doesUserExist) => {
 
       //check if the user exists
       if (sqlError !== null || doesUserExist){
@@ -34,7 +34,7 @@ function registerUser(req, res){
       }
 
       //register the user in the db
-      userDBHelper.registerUserInDB(req.body.username, req.body.password, dataResponseObject => {
+      userDBHelper.registerUserInDB(req.body, dataResponseObject => {
 
         //create message for the api response
         const message =  dataResponseObject.error === null  ? "Registration was successful" : "Failed to register user"
@@ -47,9 +47,22 @@ function registerUser(req, res){
 
 
 
-function login(registerUserQuery, res){
-
-
+function login(req, res){
+  console.log(req.cookies);
+  // check if client sent cookie
+var cookie = req.cookies.cookieName;
+if (cookie === undefined) {
+  // no: set a new cookie
+  var randomNumber=Math.random().toString();
+  randomNumber=randomNumber.substring(2,randomNumber.length);
+  res.cookie('cookieName',randomNumber, { maxAge: 900000, hostOnly: true, httpOnly: true , secure: true});
+  // res.cookie('cookieNamess',randomNumber, { maxAge: 900000, hostOnly: true, httpOnly: true , secure: true});
+  console.log('cookie created successfully');
+} else {
+  // yes, cookie was already present
+  console.log('cookie exists', cookie);
+}
+  sendResponse(res, "success?", null);
 }
 
 //sends a response created out of the specified parameters to the client.
@@ -57,7 +70,7 @@ function login(registerUserQuery, res){
 function sendResponse(res, message, error) {
 
         res
-        .status(error !== null ? error !== null ? 400 : 200 : 400)
+        .status(error === null ? 200 : 400)
         .json({
              'message': message,
              'error': error,

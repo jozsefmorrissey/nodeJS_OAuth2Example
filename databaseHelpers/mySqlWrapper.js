@@ -1,3 +1,5 @@
+const config = require('../config/config.js');
+
 module.exports = {
 
   query: query
@@ -18,10 +20,10 @@ function initConnection() {
    connection = mySql.createConnection({
 
 
-    host: 'localhost',
-    user: 'UUS',
-    password: 'ITSJUSTATESTDB',
-    database: 'uus'
+    host: config.get('mysql.host'),
+    user: config.get('mysql.user'),
+    password: config.get('mysql.password'),
+    database: config.get('mysql.database')
   })
 }
 
@@ -32,26 +34,32 @@ function initConnection() {
  * @param queryString
  * @param callback - takes a DataResponseObject
  */
-function query(queryString, callback){
+function query(queryString, values, callback){
+  function closeConnection(error, results, fields){
+    console.log('mySql: query: error is: ', error, ' and results are: ', results);
+    //disconnect from the method
+    connection.end();
+    //send the response in the callback
+    callback(createDataResponseObject(error, results))
+  };
 
   //init the connection object. Needs to be done everytime as we call end()
   //on the connection after the call is complete
-  initConnection()
+  initConnection();
 
   //connect to the db
   connection.connect()
+  console.log(JSON.stringify(arguments, null, 2));
+  console.log('callback: ' + callback);
+  // connection.query.apply(null, arguments);
+  // execute the query and collect the results in the callback
 
-  //execute the query and collect the results in the callback
-  connection.query(queryString, function(error, results, fields){
-
-      console.log('mySql: query: error is: ', error, ' and results are: ', results);
-
-    //disconnect from the method
-    connection.end();
-
-    //send the response in the callback
-    callback(createDataResponseObject(error, results))
-  })
+  if (callback === undefined) {
+    callback = values;
+    connection.query(queryString, closeConnection);
+  } else {
+    connection.query(queryString, values, closeConnection);
+  }
 }
 
 /**
