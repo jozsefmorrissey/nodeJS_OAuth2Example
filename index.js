@@ -21,6 +21,7 @@ const oAuth2Server = require('node-oauth2-server');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const expressApp = express();
+const bodyParser = require('body-parser')
 
 expressApp.oauth = oAuth2Server({
   model: oAuthModel,
@@ -29,11 +30,26 @@ expressApp.oauth = oAuth2Server({
 });
 expressApp.use(cookieParser());
 
-const restrictedAreaRoutesMethods = require('./restrictedArea/restrictedAreaRoutesMethods.js')
-const restrictedAreaRoutes = require('./restrictedArea/restrictedAreaRoutes.js')(express.Router(), expressApp, restrictedAreaRoutesMethods)
-const authRoutesMethods = require('./authorisation/authRoutesMethods')(userDBHelper)
-const authRoutes = require('./authorisation/authRoutes')(express.Router(), expressApp, authRoutesMethods)
-const bodyParser = require('body-parser')
+const appNames='user'.split(',');
+const applications = shell.ls('./applications');
+for (let index = 0; index < applications.length; index += 1) {
+  const applicationName = applications[index].replace('./applications/', '').trim();
+  const gates = shell.ls(`find ./applications/${applicationName}/ -maxdepth 1 -type d`);
+  console.log(JSON.stringify(gates));
+  if (appNames.length == 0 || appNames.indexOf(applicationName) != -1) {
+    console.log(applicationName);
+    const restrictedAreaRoutesMethods = require(`./applications/${applicationName}/restrictedMethods`)
+    const restrictedAreaRoutes = require(`./applications/${applicationName}/restrictedRoutes`)(express.Router(), expressApp, restrictedAreaRoutesMethods)
+    const authRoutesMethods = require(`./applications/${applicationName}/authMethods`)(userDBHelper)
+    const authRoutes = require(`./applications/${applicationName}/authRoutes`)(express.Router(), expressApp, authRoutesMethods)
+
+    //set the authRoutes for registration and & login requests
+    expressApp.use(`${applicationName}/auth`, authRoutes)
+    //set the restrictedAreaRoutes used to demo the accesiblity or routes that ar OAuth2 protected
+    expressApp.use(`${applicationName}/restrictedArea`, restrictedAreaRoutes)
+  }
+}
+
 
 //MARK: --- REQUIRE MODULES
 
@@ -46,13 +62,7 @@ expressApp.use(bodyParser.urlencoded({ extended: true }))
 expressApp.use(expressApp.oauth.errorHandler())
 
 //Set public content folder
-expressApp.use(express.static('./public'))
-
-//set the authRoutes for registration and & login requests
-expressApp.use('/auth', authRoutes)
-
-//set the restrictedAreaRoutes used to demo the accesiblity or routes that ar OAuth2 protected
-expressApp.use('/restrictedArea', restrictedAreaRoutes)
+expressApp.use(express.static('./public'));
 
 //MARK: --- INITIALISE MIDDLEWARE & ROUTES
 

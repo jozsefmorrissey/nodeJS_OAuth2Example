@@ -1,0 +1,82 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="application">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="resources">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="resource" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="method">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="auth-group">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="request">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="param" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType mixed="true">
+                                    <xs:sequence>
+                                      <xs:element name="option" maxOccurs="unbounded" minOccurs="0">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute type="xs:string" name="value" use="optional"/>
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:string" name="name" use="optional"/>
+                                    <xs:attribute type="xs:QName" name="type" use="optional"/>
+                                    <xs:attribute type="xs:string" name="style" use="optional"/>
+                                    <xs:attribute type="xs:string" name="required" use="optional"/>
+                                    <xs:attribute type="xs:string" name="default" use="optional"/>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="response" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="representation">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="mediaType" use="optional"/>
+                                        <xs:attribute type="xs:QName" name="element" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:short" name="status" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                        <xs:attribute type="xs:string" name="id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="path" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="base"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,161 @@
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd"
+ xmlns:tns="urn:yahoo:yn" xmlns:yn="urn:yahoo:yn" xmlns:ya="urn:yahoo:api"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns="">
+
+  <resources base="">
+    <resource path="/login">
+      <method name="GET" id="login" auth-group='unsa,usc'>
+        <request>
+          <param name="loginId" type="xsd:string" style="query" required="true"/>
+        </request>
+        <response status="200">
+          <representation mediaType="text/html"/>
+        </response>
+        <response status="404">
+          <representation mediaType="text/plain"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/transfer/request">
+      <method name="POST" id="transferRequest" auth-group='unsa,usc' login-required='true'>
+        <request>
+          <representation mediaType="application/json" element='ty:transferRequest'/>
+        </request>
+        <response status="200">
+          <representation mediaType="text/plain"/>
+        </response>
+        <response status="303">
+          <param name="loginUri" type="xsd:string" style="header" required="true"/>
+        </response>
+        <response status="400">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+        <response status="500">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/transfer">
+      <method name="GET" id="transfer" auth-group='usc' login-required='true'>
+        <response status="200">
+          <representation mediaType="text/html"/>
+        </response>
+        <response status="303">
+          <param name="loginUri" type="xsd:string" style="header" required="true"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/manage">
+      <method name="GET" id="manage" auth-group='usc' login-required='true'>
+        <response status="200">
+          <representation mediaType="text/html"/>
+        </response>
+        <response status="303">
+          <param name="loginUri" type="xsd:string" style="header" required="true"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/un/claimed">
+      <method name="GET" id="login" auth-group='uns'>
+        <request>
+          <param name="loginId" type="xsd:string" style="query" required="true"/>
+        </request>
+        <response status="200">
+          <representation mediaType="plain/text"/>
+        </response>
+        <response status="400">
+          <representation mediaType="plain/text"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/validate">
+      <method name="GET" id="validate" auth-group='uns,usc'>
+        <response status="200">
+          <representation mediaType="plain/text"/>
+        </response>
+        <response status="400">
+          <representation mediaType="plain/text"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/auth">
+      <method name="GET" id="code" auth-group='uns'>
+        <request>
+          <param name="loginId" type="xsd:string" style="query" required="true"/>
+          <param name="response_type" style="query" required="true">
+            <option value="code"/>
+          </param>
+          <param name="scope" value='code' type="xsd:string" style="query" required="true"/>
+          <param name="state" style="query" type="xsd:string"/>
+        </request>
+        <response status="200">
+          <param name="code" type="xsd:string" style="query" required="true"/>
+          <param name="state" type="xsd:string" style="query"/>
+        </response>
+        <response status="400">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/token">
+      <method name="GET" id="token" auth-group='unsa'>
+        <request>
+          <representation mediaType="application/x-www-form-urlencoded" element='ty:tokenRequest'/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json" element="ty:AccessToken"/>
+        </response>
+        <response status="400">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/enter">
+      <method name="GET" id="enter" auth-group='unsa'>
+        <request>
+          <param name="Authorization" type="xsd:string" style="header" required="true"/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json"/>
+        </response>
+        <response status="401">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/transfer/approve">
+      <method name="GET" id="transferApprove" auth-group='unsa'>
+        <request>
+          <param name="Authorization" type="xsd:string" style="header" required="true"/>
+          <param name="loginId" type="xsd:string" style="query" required="true"/>
+          <param name="newHost" type="xsd:string" style="query" required="true"/>
+        </request>
+        <response status="200"></response>
+        <response status="400">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+        <response status="500">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+    <resource path="/transfer/deny">
+      <method name="GET" id="transferApprove" auth-group='unsa'>
+        <request>
+          <param name="Authorization" type="xsd:string" style="header" required="true"/>
+          <param name="loginId" type="xsd:string" style="query" required="true"/>
+          <param name="newHost" type="xsd:string" style="query" required="true"/>
+        </request>
+        <response status="200"></response>
+        <response status="400">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+        <response status="500">
+          <representation mediaType="application/json" element="ty:Error"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

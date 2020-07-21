@@ -1,0 +1,36 @@
+<types>
+   <schema targetNamespace = "http://example.com/stockquote.xsd"
+      xmlns = "http://www.w3.org/2000/10/XMLSchema">
+
+      <element name="TransferRequest">
+         <complexType>
+            <all>
+              <element name="loginId" type="string"/>
+              <element name="newHost" type="string"/>
+            </all>
+         </complexType>
+      </element>
+
+      <element name = "TokenRequest">
+         <complexType>
+            <all>
+              <element name="grant_type" type="string"/>
+              <element name="code" type="string"/>
+              <element name="redirectUri" type="string"/>
+            </all>
+         </complexType>
+      </element>
+
+      <element name = "AccessToken">
+         <complexType>
+            <all>
+              <element name="access_token" type="string"/>
+              <element name="token_type" type="string"/>
+              <element name="expires_in" type="int"/>
+              <element name="scope" type="string"/>
+            </all>
+         </complexType>
+      </element>
+
+   </schema>
+</types>

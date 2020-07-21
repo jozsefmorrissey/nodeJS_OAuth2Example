@@ -10,7 +10,7 @@
 - Response
   - Redirect to correct MapServer
 
-### /register
+### /registered/servers
 - Call
   - GET
 - Response
@@ -28,7 +28,7 @@
     - loginIdHasBeenTaken (400)
     - loginIdFormatIsInvalid (400)
 
-### /add/server
+### /register
 - Call
   - POST
   - body
@@ -47,7 +47,7 @@
     - invalidHost (400)
     - invalidPhoneNumber (400)
 
-### /validate/client/token
+### /validate
 - Call
   - parameters
     - loginId

@@ -1,0 +1,27 @@
+{
+  "realName": {
+    "javascriptRegex": 	"/^(.*)$/",
+    "description": "Users Givin Name (No Requirements)",
+    "clientUseCount": 0
+  },
+  "fullName": {
+    "javascriptRegex": 	"/^([A-Z][a-z]*( |)){2,}$/",
+    "description": "Users Full Name in English",
+    "clientUseCount": 0
+  },
+  "email": {
+    "javascriptRegex": 	"\/^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$\/",
+    "description": "user email",
+    "clientUseCount": 0
+  },
+  "userName": {
+    "javascriptRegex": 	"/^([A-Z][a-z]*$/",
+    "description": "userName only lowercase and uppercase letters allowed.",
+    "clientUseCount": 0
+  },
+  "dateOfBirth": {
+    "javascriptRegex": 	"/^[0-9]{4}-([0][1-9]|[1][0-2])-([0-2][1-9]|[3][0-1])$/",
+    "description": "format: YYYY-MM-DD, validation will be preformed to insure invalid dates are not regestered. i.e. february 30",
+    "clientUseCount": 0
+  }
+}

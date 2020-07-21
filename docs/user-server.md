@@ -1,48 +1,5 @@
 # User Server Requirements
 
-## Data
-<table>
-  <caption>Profile</caption>
-  <tr>
-    <th>name</th>
-    <th>format</th>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td>/^[A-Za-z0-9-\_]{1,64}$/</td>
-  </tr>
-  <tr>
-    <td>json</td>
-    <td>Valid Json Object String</td>
-  </tr>
-</table>
-
-<table>
-  <caption>User</caption>
-  <tr>
-    <th>name</th>
-    <th>format</th>
-  </tr>
-  <tr>
-    <td>loginId</td>
-    <td>/^[A-Za-z0-9-_]{8,64}$/</td>
-  </tr>
-  <tr>
-    <td>password</td>
-    <td>/^[A-Za-z0-9-_]{8,64}$/</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</td>
-  </tr>
-  <tr>
-    <td>Profiles</td>
-    <td>[profile1, profile2,... ]</td>
-  </tr>
-</table>
-
-Note: Email regex found on [stack overflow](https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript?page=1&tab=votes#tab-top)
-
 ## Api
 ### /enter
 - Call
@@ -72,20 +29,21 @@ Note: Email regex found on [stack overflow](https://stackoverflow.com/questions/
 
 ### /code
 - Call
-  - Parameters
+  - Authorization: Bearer [client_access_token]
+  - parameters
+    - loginId
     - response_type=code
     - scope=[exposure1]:[attribute1] [exposure2]:[attribute2]...
-    - client_id=[client id]
-    - client_secret=[client secret]
     - state(optional)=[[client validation value](https://tools.ietf.org/html/rfc6749#section-10.12)]
-
 - Response
-  - Success (200)
-    - Parameters
-      - code=[authorizationCode]
-      - state=[clientState]
-  - Failure - error message indicating the following
-    - Invalid Credentails (400)
+- Success (200)
+  - Parameters
+    - code=[authorizationCode]
+    - state=[clientState]
+  - Failure
+    - expiredToken (400)
+    - invalidToken (400)
+    - loginIdDoesNotMatchToken (400)
     - Invalid scope Format (400)
     - response_type Not Supported (400)
 

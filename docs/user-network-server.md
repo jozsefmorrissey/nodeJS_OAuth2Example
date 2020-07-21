@@ -10,7 +10,7 @@
 - Response
   - Redirect to correct MapServer
 
-### /register
+### /registered/servers
 - Call
   - GET
 - Response
@@ -28,7 +28,7 @@
   - loginIdHasBeenTaken (400)
   - loginIdFormatIsInvalid (400)
 
-### /add/server
+### /register
 - Call
   - POST
   - body
@@ -49,12 +49,21 @@
 
 ### /code
 - Call
-  - Authorization: Bearer [client_access_token]
   - parameters
     - loginId
 - Response
+  - Redirect to mapped url
+
+### /transfer/request
+- Call
+  - GET
+  - Parameters
+    - loginId
+    - newHost=[A valid and registered user host]
+    - transferRequestId
+
+- Response
   - Success (200)
-  - Failure
-    - expiredToken (400)
-    - invalidToken (400)
-    - loginIdDoesNotMatchToken (400)
+  - Failure - error message indicating the following
+    - invalidNewHost (400)
+    - invalidLoginId (400)
